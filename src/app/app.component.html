@@ -1,0 +1,33 @@
+<head>
+  <title>IMDB Lite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  
+  <input #search type="text" />
+  <button type="button" (click)="getTemperature(search.value)">Search</button>
+  
+  <div *ngIf="temperature">
+    <h1>Results</h1>
+    <table>
+      <tr>
+        <th></th>
+        <th>Movie Name</th>
+        <th>Movie Rating</th>
+      </tr>
+
+      <tr *ngFor="let temperature of temperature.results">
+        <td>
+          {{ temperature.date }}
+        </td>
+        <td>
+          {{ temperature.id }}
+        </td>
+        <td>
+          {{ temperature.temp }}
+        </td>
+      </tr>
+    </table>
+    
+  </div>
+</body>
