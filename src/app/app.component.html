@@ -1,33 +1,34 @@
 <head>
-  <title>IMDB Lite</title>
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  
-  <input #search type="text" />
-  <button type="button" (click)="getTemperature(search.value)">Search</button>
-  
-  <div *ngIf="temperature">
-    <h1>Results</h1>
-    <table>
-      <tr>
-        <th></th>
-        <th>Movie Name</th>
-        <th>Movie Rating</th>
-      </tr>
-
-      <tr *ngFor="let temperature of temperature.results">
-        <td>
-          {{ temperature.date }}
-        </td>
-        <td>
+  <div *ngIf="temperature" style="display: flex;">
+      <div class="tempBox" *ngFor="let temperature of temperature">
+        <div style="padding: 10px 20px 10px 20px;" *ngIf="temperature.id == 1">
+          <h3>
           {{ temperature.id }}
-        </td>
-        <td>
+          </h3>
+        <h1>
           {{ temperature.temp }}
-        </td>
-      </tr>
-    </table>
-    
+        </h1>
+        </div>
+      </div>
+
+      <div class="tempBox" *ngFor="let temperature of temperature">
+        <div style="padding: 10px 20px 10px 20px;" *ngIf="temperature.id == 2">
+          <h3>
+          {{ temperature.id }}
+          </h3>
+        <h1>
+          {{ temperature.temp }}
+        </h1>
+        </div>
+      </div>
+      
   </div>
+  <div style="text-align: center;">
+    <a href="https://www.wunderground.com/dashboard/pws/IDURBA49">Weather Underground</a>
+  </div>
+  
 </body>

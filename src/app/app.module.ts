@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent, TemperatureService } from './app.component';
+import { AppComponent, SolarService, TemperatureService } from './app.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,8 @@ import { AppComponent, TemperatureService } from './app.component';
     HttpClientModule
   ],
   providers: [
-    TemperatureService
+    TemperatureService,
+    SolarService
   ],
   bootstrap: [AppComponent]
 })

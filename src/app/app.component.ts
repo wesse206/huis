@@ -4,18 +4,24 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
-
-export interface Temperature {
-  results: any[]
-}
-
 @Injectable()
 export class TemperatureService {
   constructor(private http: HttpClient) { }
-  apiUrl = 'http://steenkamp.ddns.net:5002/'
+  apiUrl = 'http://steenkamp.ddns.net:5002'
 
-  getTemperature(query: string) {
-    return this.http.get<Temperature>(this.apiUrl + query)
+  getTemperature() {
+    return this.http.get<any>(this.apiUrl)
+  }
+}
+
+@Injectable()
+export class SolarService {
+  constructor(private http: HttpClient) { }
+  apiUrl = 'http://192.168.0.111/SolarMDApi/auth'
+
+  postLogin() {
+    const headers = {'Authorization':'Apikey ED1A018FFAE74B00BBA4C81F17E72C89C18E90F80BDB0ADFDCFFC1BDBAF0FD5B'}
+    return this.http.get<any>(this.apiUrl, {headers})
   }
 }
 
@@ -25,24 +31,28 @@ export class TemperatureService {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  temperature: Temperature | undefined
+export class AppComponent implements OnInit {
+  temperature: any
 
-  constructor(private temperatureService: TemperatureService) { }
+  constructor(private temperatureService: TemperatureService, private solarService: SolarService) { }
 
-  @ViewChild('search') search !: ElementRef;
-
-  getTemperature(query: string) {  
-    this.temperatureService.getTemperature(query)
-      .subscribe((data: Temperature) => {
-        this.temperature = {
-        results: data.results
-      }
-        
-        
-  })
-    
+  getTemperature() {  
+    this.temperatureService.getTemperature()
+      .subscribe((data: any) => {
+        this.temperature = data
+  }) 
   }
-  
+
+  postLogin() {  
+    this.solarService.postLogin()
+      .subscribe((data: any) => {
+        console.log(data)
+  }) 
+  }
+
+  ngOnInit(): void {
+    this.getTemperature()
+    this.postLogin()
+  }
 }
 
