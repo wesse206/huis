@@ -7,7 +7,7 @@ import { catchError, retry } from 'rxjs/operators';
 @Injectable()
 export class TemperatureService {
   constructor(private http: HttpClient) { }
-  apiUrl = 'http://steenkamp.ddns.net:5002'
+  apiUrl = 'https://steenkamp.ddns.net:5002'
 
   getTemperature() {
     return this.http.get<any>(this.apiUrl)
